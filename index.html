@@ -14,65 +14,65 @@
       padding: 0;
     }
     .container {
-      max-width: 350px;
+      max-width: 370px;
       margin: 60px auto;
-      padding: 24px 18px 20px 18px;
+      padding: 28px 22px 22px 22px;
       background: #fff;
       border-radius: 18px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+      box-shadow: 0 2px 16px rgba(0,150,136,0.10);
     }
     h2 {
       text-align: center;
-      color: #ffb300;
-      margin-bottom: 18px;
+      color: #009688;
+      margin-bottom: 20px;
       font-size: 1.7rem;
       letter-spacing: 2px;
       font-weight: 700;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
-      text-shadow: 1px 2px 0 #fffbe7, 0 2px 8px #ffe08280;
+      text-shadow: 1px 2px 0 #e0f7fa, 0 2px 8px #4dd0e180;
     }
     label {
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       font-weight: 600;
-      color: #22223b;
+      color: #37474f;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
       letter-spacing: 1px;
     }
     input[type="number"] {
-      width: 140px;
+      width: 150px;
       padding: 7px 8px;
       font-size: 1.05rem;
-      border: 1.8px solid #ffecb3;
+      border: 1.8px solid #b2dfdb;
       border-radius: 8px;
       margin-left: 8px;
       margin-top: 6px;
       outline: none;
       transition: border 0.2s;
-      background: #fffde7;
+      background: #e0f7fa;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
     }
     input[type="number"]:focus {
-      border: 2px solid #ffb300;
-      background: #fffde7;
+      border: 2px solid #009688;
+      background: #e0f2f1;
     }
     .result {
-      margin-top: 24px;
+      margin-top: 26px;
       font-size: 1.13rem;
       line-height: 1.7;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
       letter-spacing: 1px;
     }
     .helper {
-      color: #ff9800;
+      color: #009688;
       font-weight: bold;
     }
     .driver {
-      color: #43a047;
+      color: #00796b;
       font-weight: bold;
     }
     .warn {
-      color: #e65100;
+      color: #d32f2f;
       font-weight: bold;
       margin-top: 10px;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
@@ -80,7 +80,7 @@
     .btn-group {
       display: flex;
       gap: 14px;
-      margin-top: 32px;
+      margin-top: 34px;
       justify-content: center;
     }
     .line-btn-col {
@@ -94,23 +94,23 @@
       border: 0;
       display: block;
       border-radius: 8px;
-      box-shadow: 0 2px 8px #ffe08260;
+      box-shadow: 0 2px 8px #4dd0e160;
       transition: transform 0.13s;
     }
     .line-btn img:hover {
       transform: scale(1.07) rotate(-2deg);
-      box-shadow: 0 4px 16px #ffd54f80;
+      box-shadow: 0 4px 16px #4dd0e180;
     }
     .btn-label {
       margin-top: 7px;
       font-size: 1.01rem;
-      color: #ff9800;
+      color: #009688;
       text-align: center;
       letter-spacing: 1px;
       line-height: 1.4;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
       font-weight: 700;
-      text-shadow: 0 1px 0 #fffde7;
+      text-shadow: 0 1px 0 #e0f7fa;
     }
     @media (max-width: 400px) {
       .container { padding: 18px 6px 16px 6px; }
@@ -168,8 +168,9 @@
           text: `<span class="helper">給小幫手：${fare - 200 + 120} 元</span>`,
           warn: (fare - 200 + 120) <= 0 ? '※ 應付金額為 0 元，請確認輸入。' : ''
         };
+      // 司機金額最少為 0 元
       return {
-        text: `<span class="helper">給小幫手：160 元</span><br><span class="driver">給司機：${fare - 250} 元</span>`,
+        text: `<span class="helper">給小幫手：160 元</span><br><span class="driver">給司機：${Math.max(0, fare - 250)} 元</span>`,
         warn: (fare - 250) <= 0 ? '※ 司機應付金額為 0 元，請確認輸入。' : ''
       };
     }

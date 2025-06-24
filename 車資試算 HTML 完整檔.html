@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>車資試算小工具</title>
+  <style>
+    body {
+      background: #f4f6fb;
+      font-family: 'Segoe UI', 'Microsoft JhengHei', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 350px;
+      margin: 60px auto;
+      padding: 24px 18px 16px 18px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    }
+    h2 {
+      text-align: center;
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 500;
+      color: #22223b;
+    }
+    input[type="number"] {
+      width: 140px;
+      padding: 7px 8px;
+      font-size: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      margin-left: 8px;
+      margin-top: 6px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input[type="number"]:focus {
+      border: 1.5px solid #3b82f6;
+    }
+    .result {
+      margin-top: 24px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    .helper {
+      color: #2563eb;
+      font-weight: bold;
+    }
+    .driver {
+      color: #059669;
+      font-weight: bold;
+    }
+    .warn {
+      color: #dc2626;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.92rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🚖 車資試算小工具</h2>
+    <label>
+      跳表金額（元）：
+      <input type="number" id="fare" min="0" placeholder="請輸入金額" />
+    </label>
+    <div class="result" id="result"></div>
+    <div class="footer">
+      Made by Monica<br>
+      可直接分享到 LINE 使用
+    </div>
+  </div>
+  <script>
+    const fareInput = document.getElementById('fare');
+    const resultDiv = document.getElementById('result');
+
+    function calcFare(fare) {
+      fare = Number(fare);
+      if (isNaN(fare) || fare < 0) return { text: '', warn: '請輸入正確的跳表金額' };
+      if (fare === 0) return { text: '', warn: '' };
+      if (fare <= 190)
+        return {
+          text: `<span class="helper">給小幫手：${fare - 150 + 80} 元</span>`,
+          warn: (fare - 150 + 80) <= 0 ? '※ 應付金額為 0 元，請確認輸入。' : ''
+        };
+      if (fare <= 231)
+        return {
+          text: `<span class="helper">給小幫手：${fare - 200 + 120} 元</span>`,
+          warn: (fare - 200 + 120) <= 0 ? '※ 應付金額為 0 元，請確認輸入。' : ''
+        };
+      return {
+        text: `<span class="helper">給小幫手：160 元</span><br><span class="driver">給司機：${fare - 250} 元</span>`,
+        warn: (fare - 250) <= 0 ? '※ 司機應付金額為 0 元，請確認輸入。' : ''
+      };
+    }
+
+    fareInput.addEventListener('input', function() {
+      const v = fareInput.value;
+      const res = calcFare(v);
+      resultDiv.innerHTML = res.text + (res.warn ? `<div class="warn">${res.warn}</div>` : '');
+    });
+  </script>
+</body>
+</html>

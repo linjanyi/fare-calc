@@ -3,136 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>柚子打車優惠</title>
+  <title>車資試算小工具</title>
   <style>
     body {
-      background: linear-gradient(120deg, #fbeee6 0%, #e0f7fa 100%);
+      background: #f4f6fb;
       font-family: 'Segoe UI', 'Microsoft JhengHei', Arial, sans-serif;
       margin: 0;
       padding: 0;
     }
     .container {
-      max-width: 370px;
+      max-width: 350px;
       margin: 60px auto;
-      padding: 28px 20px 22px 20px;
+      padding: 24px 18px 16px 18px;
       background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-      position: relative;
-    }
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin-bottom: 26px;
-    }
-    .link-btn {
-      display: inline-block;
-      padding: 10px 22px;
-      border-radius: 22px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      text-decoration: none;
-      background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(255, 179, 71, 0.18);
-      transition: background 0.25s, transform 0.18s;
-      border: none;
-      outline: none;
-      letter-spacing: 1px;
-    }
-    .link-btn:nth-child(2) {
-      background: linear-gradient(90deg, #ffe066 0%, #a8e063 100%);
-      color: #3d3d3d;
-      box-shadow: 0 2px 8px rgba(168, 224, 99, 0.15);
-    }
-    .link-btn:hover, .link-btn:focus {
-      filter: brightness(0.93);
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 6px 18px rgba(255, 179, 71, 0.20);
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
     }
     h2 {
       text-align: center;
-      color: #ff9800;
-      margin-bottom: 22px;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      font-weight: 700;
-      text-shadow: 0 2px 8px #ffe0b2;
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
     }
     label {
       display: block;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       font-weight: 500;
       color: #22223b;
-      font-size: 1.07rem;
-      letter-spacing: 1px;
     }
     input[type="number"] {
-      width: 150px;
-      padding: 8px 10px;
-      font-size: 1.08rem;
-      border: 1.5px solid #ffd166;
-      border-radius: 8px;
+      width: 140px;
+      padding: 7px 8px;
+      font-size: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
       margin-left: 8px;
-      margin-top: 7px;
+      margin-top: 6px;
       outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
-      background: #fff8e1;
+      transition: border 0.2s;
     }
     input[type="number"]:focus {
-      border: 2px solid #ffb347;
-      box-shadow: 0 0 0 2px #fffde7;
+      border: 1.5px solid #3b82f6;
     }
     .result {
-      margin-top: 28px;
-      font-size: 1.13rem;
+      margin-top: 24px;
+      font-size: 1.1rem;
       line-height: 1.7;
-      min-height: 36px;
-      text-align: center;
     }
     .helper {
-      color: #3b82f6;
+      color: #2563eb;
       font-weight: bold;
-      font-size: 1.18em;
     }
     .driver {
-      color: #43a047;
+      color: #059669;
       font-weight: bold;
-      font-size: 1.1em;
     }
     .warn {
       color: #dc2626;
       font-weight: bold;
-      margin-top: 12px;
-      font-size: 1em;
+      margin-top: 10px;
     }
-    @media (max-width: 480px) {
-      .container {
-        margin: 22px 2vw;
-        padding: 18px 4vw 16px 4vw;
-      }
-      .links {
-        gap: 10px;
-      }
-      h2 {
-        font-size: 1.2rem;
-      }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.92rem;
+      color: #64748b;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="links">
-      <a class="link-btn" href="https://lin.ee/Ax3tAul" target="_blank" rel="noopener noreferrer">橘子美食</a>
-      <a class="link-btn" href="https://lin.ee/brbNvkD" target="_blank" rel="noopener noreferrer">柚子打車</a>
-    </div>
-    <h2>柚子打車優惠</h2>
+    <h2>🚖 車資試算小工具</h2>
     <label>
       跳表金額（元）：
       <input type="number" id="fare" min="0" placeholder="請輸入金額" />
     </label>
     <div class="result" id="result"></div>
+    <div class="footer">
+      Made by Monica<br>
+      可直接分享到 LINE 使用
+    </div>
   </div>
   <script>
     const fareInput = document.getElementById('fare');
@@ -142,10 +93,16 @@
       fare = Number(fare);
       if (isNaN(fare) || fare < 0) return { text: '', warn: '請輸入正確的跳表金額' };
       if (fare === 0) return { text: '', warn: '' };
-      if (fare <= 190)
+
+      if (fare <= 150)
         return {
           text: `<span class="helper">給小幫手：80 元</span>`,
           warn: ''
+        };
+      if (fare <= 190)
+        return {
+          text: `<span class="helper">給小幫手：${fare - 150 + 80} 元</span>`,
+          warn: (fare - 150 + 80) <= 0 ? '※ 應付金額為 0 元，請確認輸入。' : ''
         };
       if (fare <= 231)
         return {

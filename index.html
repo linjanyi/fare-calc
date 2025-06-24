@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>車資試算小工具</title>
+  <title>柚子打車優惠計算</title>
   <style>
     body {
       background: #f4f6fb;
@@ -14,7 +14,7 @@
     .container {
       max-width: 350px;
       margin: 60px auto;
-      padding: 24px 18px 16px 18px;
+      padding: 24px 18px 20px 18px;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 2px 16px rgba(0,0,0,0.10);
@@ -25,6 +25,7 @@
       margin-bottom: 18px;
       font-size: 1.4rem;
       letter-spacing: 1px;
+      font-weight: 600;
     }
     label {
       display: block;
@@ -42,9 +43,11 @@
       margin-top: 6px;
       outline: none;
       transition: border 0.2s;
+      background: #f8fafc;
     }
     input[type="number"]:focus {
       border: 1.5px solid #3b82f6;
+      background: #fff;
     }
     .result {
       margin-top: 24px;
@@ -64,25 +67,48 @@
       font-weight: bold;
       margin-top: 10px;
     }
-    .footer {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 0.92rem;
-      color: #64748b;
+    .btn-group {
+      display: flex;
+      gap: 14px;
+      margin-top: 32px;
+      justify-content: center;
+    }
+    .link-btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      border: 1.5px solid #e0e7ef;
+      transition: background 0.18s, color 0.18s, border 0.18s;
+      box-shadow: 0 1px 5px rgba(59,130,246,0.03);
+    }
+    .link-btn:hover, .link-btn:focus {
+      background: #e0e7ef;
+      color: #1e40af;
+      border: 1.5px solid #3b82f6;
+    }
+    @media (max-width: 400px) {
+      .container { padding: 18px 6px 16px 6px; }
+      .btn-group { gap: 7px; }
+      .link-btn { padding: 10px 10px; font-size: 0.98rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>🚖 車資試算小工具</h2>
+    <h2>🚖 柚子打車優惠計算</h2>
     <label>
       跳表金額（元）：
       <input type="number" id="fare" min="0" placeholder="請輸入金額" />
     </label>
     <div class="result" id="result"></div>
-    <div class="footer">
-      Made by Monica<br>
-      可直接分享到 LINE 使用
+    <div class="btn-group">
+      <a href="https://lin.ee/Ax3tAul" class="link-btn" target="_blank" rel="noopener">橘子美食</a>
+      <a href="https://lin.ee/brbNvkD" class="link-btn" target="_blank" rel="noopener">柚子打車</a>
     </div>
   </div>
   <script>

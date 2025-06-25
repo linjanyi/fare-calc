@@ -39,7 +39,7 @@
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
       letter-spacing: 1px;
     }
-    input[type="number"] {
+    input[type="text"] {
       width: 150px;
       padding: 7px 8px;
       font-size: 1.05rem;
@@ -52,7 +52,7 @@
       background: #e0f7fa;
       font-family: 'Baloo 2', 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
     }
-    input[type="number"]:focus {
+    input[type="text"]:focus {
       border: 2px solid #009688;
       background: #e0f2f1;
     }
@@ -126,7 +126,7 @@
     <h2>🚖 柚子打車優惠計算</h2>
     <label>
       跳表金額（元）：
-      <input type="number" id="fare" min="0" placeholder="請輸入金額" />
+      <input type="text" id="fare" placeholder="請輸入金額或499-579" />
     </label>
     <div class="result" id="result"></div>
     <div class="btn-group">
@@ -147,6 +147,20 @@
   <script>
     const fareInput = document.getElementById('fare');
     const resultDiv = document.getElementById('result');
+
+    // 處理範圍輸入，回傳平均值
+    function parseFareInput(value) {
+      value = value.replace(/\s+/g, '');
+      const match = value.match(/^(\d+)\-(\d+)$/);
+      if (match) {
+        const low = Number(match[1]);
+        const high = Number(match[2]);
+        if (!isNaN(low) && !isNaN(high) && high >= low) {
+          return Math.round((low + high) / 2);
+        }
+      }
+      return Number(value);
+    }
 
     function calcFare(fare) {
       fare = Number(fare);
@@ -177,7 +191,8 @@
 
     fareInput.addEventListener('input', function() {
       const v = fareInput.value;
-      const res = calcFare(v);
+      const fare = parseFareInput(v);
+      const res = calcFare(fare);
       resultDiv.innerHTML = res.text + (res.warn ? `<div class="warn">${res.warn}</div>` : '');
     });
   </script>
